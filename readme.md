@@ -1,134 +1,114 @@
-<!--START_SECTION:header-->
-<div align="center">
-  <p align="center">
-    <img 
-      alt="DIO Education" 
-      src="./.github/assets/logo.webp" 
-      width="100px" 
-    />
-    <h1>Formação: NodeJS Developer</h1>
-  </p>
-</div>
-<!--END_SECTION:header-->
-
-<p align="center">
-  <img src="https://img.shields.io/static/v1?label=DIO&message=Education&color=E94D5F&labelColor=202024" alt="DIO Project" />
-  <a href="LICENSE"><img  src="https://img.shields.io/static/v1?label=License&message=MIT&color=E94D5F&labelColor=202024" alt="License"></a>
-</p>
-
-<!--  -->
-<table align="center">
-<thead>
-  <tr>
-    <td>
-        <p align="center">Expert</p>
-        <a href="https://github.com/felipeAguiarCode">
-        <img src="https://avatars0.githubusercontent.com/u/37452836?v=3&s=115" alt="@felipeAguiarCode"><br>
-        <sub>@felipeAguiarCode</sub>
-      </a>
-    </td>
-    <td colspan="3">
-    <p>Desenvolvendo soluções fullstack a mais de 10 anos!</p>
-      <a 
-      href="https://www.linkedin.com/in/felipe-me/" 
-      align="center">
-           <img 
-            align="center" 
-            alt="Material de Apoio" 
-            src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"
-            >
-        </a>
-    </td>
-  </tr>
-</thead>
-</table>
-<!--  -->
 
 <div align="center">
-  <h2>💻 Módulos</h2>
-</div>
-
-<div align="center">
-<table>
-  <thead>
-    <tr align="left">
-      <th>#</th>
-      <th>Módulo</th>
-      <th>Materiais</th>
-    </tr>
-  </thead>
-  <tbody align="left">
-    <tr>
-      <td>01</td>
-      <td>📁 Fundamentos NodeJS</td>
-      <td align="center">
-        <a href="">
-           <img 
-              align="center" 
-              alt="Material de Apoio" 
-              src="https://img.shields.io/badge/Ver%20Material-E94D5F?style=for-the-badge"
-            >
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td>02</td>
-      <td>📁 Modulo2</td>
-      <td align="center">
-        <a href="">
-           <img 
-            align="center" 
-            alt="Material de Apoio" 
-            src="https://img.shields.io/badge/Ver%20Material-E94D5F?style=for-the-badge"
-            >
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td>03</td>
-      <td>📁 Modulo3</td>
-      <td align="center">
-        <a href="">
-           <img 
-            align="center" 
-            alt="Material de Apoio" 
-            src="https://img.shields.io/badge/Ver%20Material-E94D5F?style=for-the-badge"
-            >
-        </a>
-      </td>    
-    </tr>
-    <tr>
-      <td>04</td>
-      <td>📁 Modulo4</td>
-      <td align="center">
-        <a href="">
-           <img 
-            align="center" 
-            alt="Material de Apoio" 
-            src="https://img.shields.io/badge/Ver%20Material-E94D5F?style=for-the-badge"
-            >
-        </a>
-      </td>    
-    </tr>
-  </tbody>
-  <tfoot></tfoot>
-</table>
-</div>
-
-<!--START_SECTION:footer-->
-<br/>
-<br/>
-<p align="center">
-  ⌨️ Feito com 💜 by DIO
-</p>
-
-<br />
-<br />
-
-<p align="center">
-  <a href="https://www.dio.me/" target="_blank">
-    <img align="center" src="./.github/assets/footer.png" alt="banner"/>
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=26a62f&height=120&section=header"/>
+  
+  <a href="https://github.com/PedroLuizskt">
+    <img src="https://readme-typing-svg.herokuapp.com/?color=339933&size=35&center=true&vCenter=true&width=1000&lines=Bootcamp+Backend+Development;Node.js+Terminal+Engines;Java+Enterprise+Ecosystem&duration=4000&pause=1000" alt="Typing SVG" />
   </a>
-</p>
+</div>
 
-<!--END_SECTION:footer-->
+<div align="center">
+
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/)
+
+</div>
+
+---
+
+## 🚀 Sobre o Repositório
+
+Este repositório é dedicado ao desenvolvimento e versionamento dos desafios técnicos propostos no Bootcamp de Backend (Node.js & Java). O objetivo arquitetural aqui é construir, iterar e otimizar lógicas de backend, simulando cenários reais de engenharia de software, manipulação de dados e regras de negócio.
+
+A cada novo módulo, um novo projeto será integrado, escalando a complexidade das soluções — desde motores de simulação no terminal com JavaScript até APIs robustas.
+
+---
+
+<br>
+
+<div align="center">
+  <img src="03-projeto-mario-kart/docs/header.gif" width="600px" style="border-radius: 10px; box-shadow: 0px 0px 20px rgba(51, 153, 51, 0.4);"/>
+</div>
+
+## 🏎️ Projeto 03: Mario Kart Node.js Engine
+
+O primeiro desafio consiste em um simulador de corridas focado inteiramente na construção do **Motor Lógico (Engine)** via terminal. O projeto original propunha uma corrida assíncrona entre dois personagens. 
+
+**O Desafio de Engenharia:** Evoluir a lógica para suportar múltiplos competidores simultâneos (escalabilidade de escopo), gerenciar eventos probabilísticos complexos e garantir a integridade dos dados (prevenção de pontuações negativas e tratamento rigoroso de empates técnicos).
+
+### ⚙️ A Engenharia por Trás do Código
+
+O motor não possui interface gráfica; a imersão ocorre pelo processamento matemático e retorno via console.
+
+#### 1. Arquitetura de Entidades e Loop Assíncrono
+Os personagens são armazenados em um vetor de objetos estáticos. O loop de corrida (`playRaceEngine`) utiliza controle de fluxo assíncrono (`async/await`) para simular o tempo de processamento e a "rolagem dos dados" de forma sequencial para todos os jogadores ativos.
+
+#### 2. Resolução de Conflitos e Ordenação Vetorial
+Diferente da estrutura `if/else` engessada para dois jogadores, o motor implementa ordenação dinâmica de arrays (`Array.prototype.sort`) a cada rodada. 
+
+```javascript
+// O cálculo define o vencedor e o perdedor da rodada com base em ordenação decrescente:
+roundResults.sort((a, b) => b.total - a.total);
+let winner = roundResults[0].player;
+let loser = roundResults[roundResults.length - 1].player;
+
+```
+
+Isso permite que a engine receba *N* jogadores sem quebrar a lógica de negócio. Empates no topo da tabela são filtrados e computados para que todos os líderes da rodada pontuem adequadamente.
+
+#### 3. Distribuição Probabilística de Itens
+
+Durante o bloco de `CONFRONTO`, a lógica probabilística (utilizando `Math.random()`) define o peso da punição e a chance de bonificação:
+
+* **Perdedor:** 50% de chance de impacto leve (Casco: -1pt) ou crítico (Bomba: -2pts). O sistema utiliza `Math.max(0, valor)` para garantir a integridade da regra de limite zero.
+* **Vencedor:** Benefício volátil com 50% de chance de receber um *Turbo* (+1pt).
+
+---
+
+### 🛠️ Estrutura do Projeto
+
+```text
+📦 03-projeto-mario-kart
+ ┣ 📂 docs               # Assets visuais (gifs de personagens)
+ ┣ 📂 src
+ ┃ ┗ 📜 index.js         # Motor principal de simulação e regras de negócio
+ ┣ 📜 package.json       # Configuração do ambiente Node
+ ┗ 📜 extras.md          # Anotações adicionais e escopo original
+
+```
+
+### 🎮 Como Executar a Simulação
+
+Este projeto foi construído nativamente em **Node.js**.
+
+1. **Acesse o diretório do projeto:**
+
+```bash
+cd 03-projeto-mario-kart
+
+```
+
+2. **Execute o motor lógico:**
+
+```bash
+node src/index.js
+
+```
+
+3. **Resultado Esperado:**
+O terminal irá processar os blocos (Retas, Curvas e Confrontos), aplicar a mecânica de dados e itens, e exibir o placar final ordenado dos 4 competidores simultâneos.
+
+---
+
+<div align="center">
+<img src="03-projeto-mario-kart/docs/mario.gif" width="50px" /> <img src="03-projeto-mario-kart/docs/bowser.gif" width="50px" />
+
+
+
+
+
+<sub>Desenvolvido para evolução técnica por <a href="https://github.com/PedroLuizskt">Pedro Luiz</a></sub>
+</div>
+
+```
