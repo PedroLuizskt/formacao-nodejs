@@ -1,101 +1,68 @@
-<!--START_SECTION:header-->
-<div align="center">
-  <p align="center">
-    <img 
-      alt="DIO Education" 
-      src="https://raw.githubusercontent.com/digitalinnovationone/template-github-trilha/main/.github/assets/logo.webp" 
-      width="100px" 
-    />
-    <h1>Recriando a lógica do carrinho de compras da Shopee</h1>
-  </p>
 </div>
-<!--END_SECTION:header-->
 
-<p align="center">
-  <img src="https://img.shields.io/static/v1?label=DIO&message=Education&color=E94D5F&labelColor=202024" alt="DIO Project" />
-  <a href="NIVEL"><img  src="https://img.shields.io/static/v1?label=Nivel&message=Basico&color=E94D5F&labelColor=202024" alt="Nivel"></a>
+<br>
 
-</p>
+## 🛒 Desafio de Projeto: Motor de Carrinho de Compras (Shopee)
 
-<!--  -->
-<table align="center">
-<thead>
-  <tr>
-    <td>
-        <p align="center">Felipe Aguiar</p>
-        <a href="https://github.com/felipeAguiarCode">
-        <img src="https://avatars0.githubusercontent.com/u/37452836?v=3&s=115" alt="@felipeAguiarCode"><br>
-      </a>
-    </td>
-    <td colspan="3">
-    <p>🎉 10y+ em sistemas comerciais com .NET C# e NODE.JS.
-      <br/>
-     🌟 Desenvolvedor fullstack - Coordenador de educação na DIO
-      <br/>
-    👨‍💻 Foco em front-ends SPA com React, Angular e Vue.js
-    </p>
-      <a 
-      href="https://www.linkedin.com/in/felipe-me/" 
-      align="center">
-           <img 
-            align="center" 
-            alt="Material de Apoio" 
-            src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"
-            >
-        </a>
-        <a href="https://www.instagram.com/felipeaguiar.exe/" target="_blank">
-            <img 
-              align="center" 
-              alt="Instagram" 
-              src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"
-            >
-        </a>
-    </td>
-  </tr>
-</thead>
-</table>
-<!--  -->
+O segundo desafio focou na construção de um motor de carrinho de compras executado inteiramente no terminal, inspirado na lógica de backend de grandes e-commerces. 
 
-<br/>
-<br/>
+**O Desafio de Engenharia:** Desenvolver um sistema de gerenciamento de estado confiável para itens mutáveis, modularizar a aplicação separando regras de negócio e garantir a consistência matemática dos subtotais, evitando duplicação de dados em memória.
 
-## 💻 Descrição Do Projeto
+### ⚙️ A Engenharia por Trás do Código
 
-Vamos criar a lógica por trás do carrinho de compras da shopee, aonde o carrinho armazene itens e faça o cálculo total e de sub-itens automaticamente.
+A arquitetura foi desenhada separando as responsabilidades (Service Pattern) utilizando ES Modules nativos do Node.js (`import/export`).
 
-## 📚 Pré-requisitos de Habilidades e Níveis de Conhecimento
+#### 1. Correção de Escopo Léxico (O Problema do Estado Estático)
+A implementação base sofria de um bug de estado: o subtotal de um item era calculado e "congelado" apenas no momento de sua criação. A solução foi alterar a função de cálculo para devolver o controle do contexto dinâmico ao `this` dentro do objeto:
 
-Antes de ingressar neste conteúdo, é necessário possuir conhecimento prévio nas seguintes áreas:
+```javascript
+// A função tradicional garante que 'this.quantity' pegue o valor atualizado no momento da chamada
+subtotal: function () {
+  return this.price * this.quantity;
+}
 
-- [habilidades ou conhecimentos prévios necessários]
+```
 
-  - Javascript | Intermediário
-  - Node | Básico
-  - Modularização | Básica
+Isso garante que incrementos ou remoções de itens no carrinho reflitam instantaneamente no valor final, sem a necessidade de recalcular manualmente a cada alteração.
 
-- [Outros pré-requisitos]
+#### 2. Mutação Inteligente de Arrays (Prevenção de Duplicação)
 
-  - Lógica de Programação | Intermediário
+Para evitar que o mesmo produto crie múltiplas linhas no carrinho — o que geraria desperdício de memória e má usabilidade —, a função `addItem` foi refatorada. Utilizei `Array.prototype.findIndex` para buscar a existência prévia do item. Se o item já existe, a engine apenas incrementa a propriedade `quantity`; caso contrário, injeta um novo registro (`push`).
 
-## 🛠️ Habilidades e Sub-habilidades que vamos aprender neste conteúdo
+#### 3. Formatação e Precisão Financeira
 
-- Modularização | Intermediária
+Lidar com operações de ponto flutuante em JavaScript pode gerar dízimas indesejadas. Implementei o tratamento com `Number.prototype.toFixed(2)` em toda a camada de visualização para garantir o padrão monetário real (ex: `R$ 20.99`), além de aplicar um `reduce` otimizado para a soma do valor global da compra, formatando a saída final como um cupom fiscal no terminal.
 
-## 🎯 Objetivos e Resultados Esperados
+---
 
-Após a conclusão do curso/projeto, os estudantes estarão aptos a:
+### 🛠️ Estrutura do Projeto
 
-- Modularizar projetos com maior propriedade
-- Como organizar pensamento lógico e funcional
-- Base para organizar projetos
+```text
+📦 06-shopee-cart
+ ┣ 📂 src
+ ┃ ┣ 📂 services
+ ┃ ┃ ┣ 📜 cart.js    # Lógica de manipulação do array, buscas e cálculos
+ ┃ ┃ ┗ 📜 item.js    # Fábrica de objetos (Factory Pattern)
+ ┃ ┗ 📜 index.js     # Ponto de entrada e execução da simulação
+ ┗ 📜 package.json   # Configuração de ambiente e definição de módulo (ESM)
 
-<!--START_SECTION:footer-->
+```
 
-<br />
-<br />
+### 🎮 Como Executar a Simulação
 
-<p align="center">
-  <a href="https://www.dio.me/" target="_blank">
-    <img align="center" src="https://raw.githubusercontent.com/digitalinnovationone/template-github-trilha/main/.github/assets/footer.png" alt="banner"/>
-  </a>
-</p>
+1. **Acesse o diretório do projeto:**
+
+```bash
+cd 06-shopee-cart
+
+```
+
+2. **Execute o motor:**
+
+```bash
+node src/index.js
+
+```
+
+3. **Resultado Esperado:**
+O terminal exibirá a lista de produtos unificada, com os cálculos de subtotais corrigidos de acordo com a quantidade, e o valor total formatado rigorosamente em moeda (R$).
