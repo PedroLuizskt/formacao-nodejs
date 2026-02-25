@@ -1,98 +1,85 @@
-<!--START_SECTION:header-->
-<div align="center">
-  <p align="center">
-    <img 
-      alt="DIO Education" 
-      src="https://raw.githubusercontent.com/digitalinnovationone/template-github-trilha/main/.github/assets/logo.webp" 
-      width="100px" 
-    />
-    <h1>Gerador de QRcode para e-commerce</h1>
-  </p>
-</div>
-<!--END_SECTION:header-->
 
-<p align="center">
-  <img src="https://img.shields.io/static/v1?label=DIO&message=Education&color=E94D5F&labelColor=202024" alt="DIO Project" />
-  <a href="NIVEL"><img  src="https://img.shields.io/static/v1?label=Nivel&message=Basico&color=E94D5F&labelColor=202024" alt="Nivel"></a>
+## 🔲 Desafio de Projeto: Criando um Gerador de QR Codes para E-commerces com Node.js
 
-</p>
+O terceiro desafio baseou-se na construção de um utilitário de terminal em Node.js focado na produtividade de e-commerces. A aplicação permite a geração rápida de QR Codes para links de produtos e a criação de senhas seguras, sem a necessidade de uma interface gráfica complexa.
 
-<!--  -->
-<table align="center">
-<thead>
-  <tr>
-    <td>
-        <p align="center">Expert</p>
-        <a href="https://github.com/felipeAguiarCode">
-        <img src="https://avatars0.githubusercontent.com/u/37452836?v=3&s=115" alt="@felipeAguiarCode"><br>
-      </a>
-    </td>
-    <td colspan="3">
-    <p>🎉 10y+ em sistemas comerciais com .NET C# e NODE.JS.
-      <br/>
-     🌟 Desenvolvedor fullstack - Coordenador de educação na DIO
-      <br/>
-    👨‍💻 Foco em front-ends SPA com React, Angular e Vue.js
-    </p>
-      <a 
-      href="https://www.linkedin.com/in/felipe-me/" 
-      align="center">
-           <img 
-            align="center" 
-            alt="Material de Apoio" 
-            src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"
-            >
-        </a>
-        <a href="https://www.instagram.com/felipeaguiar.exe/" target="_blank">
-            <img 
-              align="center" 
-              alt="Instagram" 
-              src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white"
-            >
-        </a>
-    </td>
-  </tr>
-</thead>
-</table>
-<!--  -->
+**O Desafio de Engenharia:** Consolidar uma ferramenta robusta validando estritamente os *inputs* do usuário, lidar de forma segura com variáveis de ambiente e entregar uma UI/UX limpa e profissional diretamente no console.
 
-<br/>
-<br/>
+### ⚙️ A Engenharia por Trás do Código
 
-## 💻 Sobre o Projeto
+O projeto faz uso intenso de módulos interativos e arquitetura baseada em serviços, com o Node.js lendo arquivos `.env` nativamente (flag `--env-file`).
 
-Vamos construir um kit de utilidades para um e-commerce, o projeto deve ser escalável para ter adição de novas features.
+#### 1. Validação Estrita de Inputs (Expressões Regulares)
+A implementação original de validação possuía uma falha silenciosa no *Regex* (`/^[1-2]+$/`), que permitia a passagem de valores repetidos como `11` ou `22`. A regra foi corrigida para uma verificação de caractere único estrita:
 
-## 📚 Pré-requisitos de Habilidades e Níveis de Conhecimento
+```javascript
+// O padrão agora exige exatamente o dígito 1 ou 2, ancorado no início (^) e fim ($) da string.
+pattern: /^[1-2]$/, 
 
-Antes de ingressar neste conteúdo, é necessário possuir conhecimento prévio nas seguintes áreas:
+```
 
-- Lógica de programação
-- Javascript | Básico
-- NodeJS | Básico
-- Node Modules
-- NPM, Packages, Dependencies
-- Variáveis ambiente (.env)
+Isso garante que o menu não quebre o fluxo da aplicação caso o usuário digite números duplicados acidentalmente.
 
-## 🛠️ Habilidades e Sub-habilidades que vamos aprender neste conteúdo
+#### 2. Resiliência e Prevenção de Falhas (Fallback de Segurança)
 
-- Como gerar qrcode com node
-- Como lidar com várias dependências de um projeto
-- Como pensar em projetos por camadas
+A geração de senhas baseia-se em regras de um arquivo `.env`. Contudo, um desenvolvedor ou usuário desatento poderia configurar todas as flags para `false` ou ter um `.env` ausente, o que geraria um *crash* por falta de caracteres para o cálculo matemático. Para mitigar isso, implementei um sistema de *fallback*:
 
-## 🎯 Objetivos e Resultados Esperados
+```javascript
+// Trava de segurança: Previne colapso da aplicação
+if (permitted.length === 0) {
+  console.log("⚠️ Nenhuma regra ativa no .env! Usando letras minúsculas por padrão.");
+  permitted.push(..."abcdefghijklmnopqrstuvwxyz");
+}
 
-Após a conclusão do curso/projeto, os estudantes estarão aptos a:
+```
 
-- Criar projetos nodejs que gerem multiplas dependências
+Isso garante a disponibilidade contínua do software, mesmo diante de má configuração de infraestrutura.
 
-<!--START_SECTION:footer-->
+#### 3. UX/UI de Terminal (Formatação e Legibilidade)
 
-<br />
-<br />
+Utilizei a biblioteca `chalk` para estruturar a legibilidade dos menus. Adicionei cabeçalhos em formato de blocos (`bgGreen.black.bold`) e limpei a estrutura de perguntas para entregar uma experiência que lembra painéis administrativos profissionais de CLI (Command Line Interface).
 
-<p align="center">
-  <a href="https://www.dio.me/" target="_blank">
-    <img align="center" src="https://raw.githubusercontent.com/digitalinnovationone/template-github-trilha/main/.github/assets/footer.png" alt="banner"/>
-  </a>
-</p>
+---
+
+### 🛠️ Estrutura do Projeto
+
+```text
+📦 projeto-qrcode
+ ┣ 📂 docs                   # Capturas de tela e diagramas de arquitetura
+ ┣ 📂 src
+ ┃ ┣ 📂 prompts-schema       # Regras de validação de input (Regex e mensagens)
+ ┃ ┣ 📂 services
+ ┃ ┃ ┣ 📂 password           # Motor de geração aleatória e regras (.env)
+ ┃ ┃ ┗ 📂 qr-code            # Motor de conversão de URL para matriz no terminal
+ ┃ ┗ 📜 index.js             # Ponto de entrada (Menu CLI)
+ ┣ 📜 .env                   # Configurações de comprimento e tipos de caracteres da senha
+ ┗ 📜 package.json           # Configuração de ambiente e scripts (ESM)
+
+```
+
+### 🎮 Como Executar a Ferramenta
+
+1. **Acesse o diretório do projeto:**
+
+```bash
+cd projeto-qrcode
+
+```
+
+2. **Instale as dependências da aplicação:**
+
+```bash
+npm install
+
+```
+
+3. **Execute o painel interativo:**
+
+```bash
+npm start
+
+```
+4. **Resultado Esperado:**
+O terminal abrirá um menu interativo e colorido perguntando se você deseja gerar um QR Code a partir de uma URL ou gerar uma senha segura baseada nas regras do arquivo `.env`.
+
+---
