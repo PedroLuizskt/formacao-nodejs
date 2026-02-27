@@ -267,7 +267,38 @@ npm start
 
 ```
 
+
+
 4. **Resultado Esperado:**
 O terminal abrirá um menu interativo e colorido perguntando se você deseja gerar um QR Code a partir de uma URL ou gerar uma senha segura baseada nas regras do arquivo `.env`.
+
+---
+
+<br>
+
+## 🎧 Desafio de Projeto: Gerenciador de Podcasts - API NodeJS Com Typescript e HTTP Module
+
+Diferente dos projetos anteriores que residem neste monorepo, o quarto desafio exigiu uma arquitetura escalável e foi movido para um **repositório independente**. O foco foi construir uma API RESTful do zero, utilizando Node.js puro e TypeScript, sem a abstração de frameworks externos (como Express ou Fastify).
+
+**O Desafio de Engenharia:** Aplicar conceitos de *Clean Architecture* em um servidor HTTP nativo, garantindo tipagem estrita, separação de responsabilidades (MSC), segurança de acesso via rede (CORS) e tratamento elegante de rotas inexistentes (Fallback 404). O domínio da aplicação centraliza a curadoria de podcasts de alto nível intelectual (Astrofísica, Biologia Evolutiva e Teoria Musical).
+
+### ⚙️ A Engenharia por Trás do Código
+
+#### 1. Roteamento Nativo e Desacoplamento
+A inicialização do servidor (`server.ts`) foi isolada da lógica de roteamento (`app.ts`). O motor de rotas inspeciona manualmente as URLs e os verbos HTTP (`GET`, `OPTIONS`) para delegar o processamento aos *Controllers*, simulando a arquitetura interna de um framework profissional.
+
+#### 2. Segurança de Interface (CORS e Tratamento 404)
+Para permitir o consumo seguro por aplicações Front-end de domínios distintos, cabeçalhos de CORS (`Access-Control-Allow-Origin`, `Access-Control-Allow-Methods`) foram injetados no ciclo de vida da requisição. Além disso, uma rota universal foi criada para capturar requisições inválidas e retornar um JSON formatado com HTTP Status 404, evitando travamentos no cliente.
+
+#### 3. Higienização de Queries
+Para suportar buscas flexíveis e com espaços (ex: `teoria musical`), a camada de serviços utiliza `decodeURIComponent`. Isso garante que parâmetros de URL encodados sejam limpos e validados antes de atingirem a camada de dados (Repository).
+
+---
+
+### 🔗 Acesso ao Repositório Oficial
+
+Este projeto possui sua própria estrutura de configuração, TypeScript e documentação isolada. Você pode conferir o código-fonte, a estrutura MSC e as instruções de uso diretamente no link abaixo:
+
+[![Acessar PodManager API](https://img.shields.io/badge/Acessar_Repositório-PodManager_API-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/PedroLuizskt/node-ts-webapi-without-frameworks-podcast-manager/tree/main)
 
 ---
