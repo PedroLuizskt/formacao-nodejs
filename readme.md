@@ -302,3 +302,65 @@ Este projeto possui sua própria estrutura de configuração, TypeScript e docum
 [![Acessar PodManager API](https://img.shields.io/badge/Acessar_Repositório-PodManager_API-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/PedroLuizskt/node-ts-webapi-without-frameworks-podcast-manager/tree/main)
 
 ---
+
+## 🏎️ Projeto: Criando uma Minimal API da Fórmula 1 com Node.js e Fastify
+
+O quinto desafio do bootcamp introduziu o desenvolvimento de microserviços focados em altíssima performance e baixo *overhead*. Para isso, o projeto utiliza Node.js aliado ao framework **Fastify**, reconhecido como um dos web frameworks mais rápidos do ecossistema JavaScript.
+
+**O Desafio de Engenharia:** Evoluir uma API base de leitura simples para um CRUD funcional (Create, Read, Update, Delete) operando em memória. O objetivo foi aplicar tipagem estrita de requisições, injeção correta de variáveis de ambiente e segurança de rede, mantendo o código minimalista em um único arquivo de inicialização.
+
+### ⚙️ A Engenharia por Trás do Código
+
+#### 1. Evolução para CRUD e Integridade de Dados
+O código original foi refatorado para suportar mutações de estado e corrigir falhas de integridade (IDs duplicados na base estática). Implementei a rota `POST` para criação de novos pilotos, contendo uma lógica matemática simples de auto-incremento dinâmico (`drivers[drivers.length - 1].id + 1`). A rota `DELETE` foi arquitetada utilizando `Array.prototype.findIndex` para garantir a remoção exata do registro na memória.
+
+#### 2. Tipagem Estrita de Payloads (Interfaces TypeScript)
+Para evitar falhas de execução (Runtime Errors), as rotas mutáveis foram blindadas com TypeScript. Utilizei a injeção de genéricos na declaração das rotas do Fastify (`server.post<{ Body: DriverBody }>`), acoplando *Interfaces* personalizadas que obrigam o cliente a enviar os dados no formato exato (`name` e `team`), retornando automaticamente o `HTTP Status 400 (Bad Request)` em caso de falha.
+
+#### 3. Alta Performance, CORS e Variáveis de Ambiente
+Para garantir que a API pudesse ser consumida por aplicações Front-end, o plugin `@fastify/cors` foi configurado na inicialização do servidor. Além disso, a porta de rede, que antes estava engessada no código, passou a ser consumida dinamicamente via arquivo `.env` nativo do Node.js, com um *fallback* seguro para a porta 3333.
+
+---
+
+### 🛠️ Estrutura do Projeto
+
+```text
+📦 project-formula-1
+ ┗ 📂 node-f1
+   ┣ 📂 src
+   ┃ ┗ 📜 server.ts      # Instância do Fastify, banco em memória e rotas CRUD
+   ┣ 📜 .env             # Configuração da porta da API
+   ┣ 📜 package.json     # Scripts de execução (tsx e tsup)
+   ┗ 📜 tsconfig.json    # Configuração de compilação
+
+```
+
+### 🎮 Como Executar a API Localmente
+
+1. **Acesse o diretório específico do projeto:**
+
+```bash
+cd project-formula-1/node-f1
+
+```
+
+2. **Instale as dependências (Fastify, CORS, TypeScript):**
+
+```bash
+npm install
+
+```
+
+3. **Inicie o servidor em modo Watch (atualização em tempo real):**
+
+```bash
+npm run start:watch
+
+```
+
+4. **Testando os Endpoints (via Postman/Insomnia):**
+* **Listar Equipes:** `GET http://localhost:3333/teams`
+* **Listar Pilotos:** `GET http://localhost:3333/drivers`
+* **Criar Piloto:** `POST http://localhost:3333/drivers` (Enviar JSON com `name` e `team`)
+* **Deletar Piloto:** `DELETE http://localhost:3333/drivers/1`
+
