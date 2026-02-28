@@ -17,7 +17,6 @@ export const getPlayerService = async () => {
 };
 
 export const getPlayerByIdService = async (id: number) => {
-  //pedir pro repisotório de dados
   const data = await PlayerRepostory.findPlayerById(id);
   let response = null;
 
@@ -33,7 +32,6 @@ export const getPlayerByIdService = async (id: number) => {
 export const createPlayerService = async (player: PlayerModel) => {
   let response = null;
 
-  //verifica se está vazio
   if (Object.keys(player).length !== 0) {
     await PlayerRepostory.insertPlayer(player);
     response = await HttpResponse.created();
@@ -57,14 +55,12 @@ export const deletePlayerService = async (id: number) => {
   return response;
 };
 
-export const updatePlayerService = async (
-  id: number,
-  statistics: StatisticsModel
-) => {
+export const updatePlayerService = async (id: number, statistics: StatisticsModel) => {
   const data = await PlayerRepostory.findAndModifyPlayer(id, statistics);
   let response = null;
 
-  if (Object.keys(data).length === 0) {
+  //  Se a alteração falhou (ID inexistente), devolvemos Bad Request
+  if (!data) {
     response = await HttpResponse.badRequest();
   } else {
     response = await HttpResponse.ok(data);
