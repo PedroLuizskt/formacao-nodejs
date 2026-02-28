@@ -6,14 +6,19 @@ function createApp() {
   const app = express();
 
   app.use(express.json());
+  
+  app.use(cors({
+    origin: "*", 
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+  }));
+
   app.use("/api", router);
 
-  const corsOptions = {
-    origin: ["http://felipao.sistem.com", "http://gov.br"],
-    methods: ["GET", "UPDATE"],
-  };
-
-  app.use(cors());
+   
+  // Sem um path definido, este middleware captura naturalmente tudo o que o router acima não resolveu.
+  app.use((req, res) => {
+    res.status(404).json({ message: "Rota não encontrada na API da Champions League." });
+  });
 
   return app;
 }
