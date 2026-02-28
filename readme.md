@@ -364,3 +364,77 @@ npm run start:watch
 * **Criar Piloto:** `POST http://localhost:3333/drivers` (Enviar JSON com `name` e `team`)
 * **Deletar Piloto:** `DELETE http://localhost:3333/drivers/1`
 
+---
+
+<br>
+
+## ⚽ Projeto: Recriando a API da Champions League com Node.js e Express
+
+O sexto e último desafio do bootcamp exigiu a construção de uma API completa e estruturada para acessar e manipular dados da Champions League. A ferramenta escolhida foi o **Express**, o framework de backend mais consolidado do ecossistema Node.js.
+
+**O Desafio de Engenharia:** Consolidar os conhecimentos de Clean Architecture (Controllers, Services, Repositories e Models) em uma aplicação robusta, capaz de gerenciar jogadores e clubes. O foco foi elevar a resiliência da API, prevenindo *crashes* por manipulação indevida de dados e garantindo a segurança no consumo das rotas.
+
+### ⚙️ A Engenharia por Trás do Código
+
+#### 1. Prevenção de Crash (Runtime Error Handling)
+Na lógica original de atualização de dados (PATCH), a busca por um jogador inexistente resultava em um erro fatal que derrubava o servidor. A arquitetura foi refatorada na camada de Serviço e Repositório para tratar retornos `undefined` de forma elegante. Agora, mutações inválidas são interceptadas, retornando o `HTTP Status 400 (Bad Request)` sem comprometer o *uptime* da aplicação.
+
+#### 2. Roteamento Seguro (CORS e Fallback Universal)
+Para habilitar a integração fluida com plataformas Front-end, o *middleware* de CORS foi implementado globalmente antes da resolução de rotas, liberando o consumo via rede. Adicionalmente, construí uma rota de Fallback Universal: qualquer requisição a um *endpoint* não mapeado é interceptada por um tratador genérico que devolve um JSON com `HTTP Status 404 (Not Found)`, substituindo as telas de erro HTML padrão do Express.
+
+#### 3. Integridade de Dados e Modelagem (TypeScript)
+Os dados estáticos do banco em memória foram higienizados, removendo duplicidades críticas de ID que poderiam corromper buscas e atualizações. Toda a manipulação de dados mutáveis, como os *status* dos jogadores, foi fortemente tipada com `Interfaces` em TypeScript (`PlayerModel` e `StatisticsModel`), garantindo previsibilidade e consistência na entrega dos *payloads*.
+
+---
+
+### 🛠️ Estrutura do Projeto
+
+```text
+📦 projeto-champions
+ ┣ 📂 src
+ ┃ ┣ 📂 controllers      # Controladores de Requisição/Resposta (Players e Clubs)
+ ┃ ┣ 📂 data             # Base estática JSON (Clubes)
+ ┃ ┣ 📂 models           # Interfaces TypeScript (Player, Club, Statistics, HttpResponse)
+ ┃ ┣ 📂 repositories     # Camada de Dados (Banco em memória e File System)
+ ┃ ┣ 📂 services         # Camada de Negócio e Validações
+ ┃ ┣ 📜 app.ts           # Configuração de Middlewares (CORS, Express JSON, 404 Fallback)
+ ┃ ┣ 📜 routes.ts        # Mapeamento de rotas e verbos HTTP
+ ┃ ┗ 📜 server.ts        # Ponto de entrada e listener da porta configurada
+ ┣ 📜 .env               # Variáveis de ambiente (Porta 3333)
+ ┗ 📜 package.json       # Configuração e scripts de inicialização
+
+```
+
+### 🎮 Como Executar a API Localmente
+
+1. **Acesse o diretório do projeto:**
+
+```bash
+cd projeto-champions
+
+```
+
+2. **Instale as dependências (Express, CORS, TypeScript):**
+
+```bash
+npm install
+
+```
+
+3. **Inicie o servidor em modo de desenvolvimento:**
+
+```bash
+npm run start:watch
+
+```
+
+4. **Testando os Endpoints (via Postman/Insomnia):**
+* **Listar Clubes:** `GET http://localhost:3333/api/clubs`
+* **Listar Jogadores:** `GET http://localhost:3333/api/players`
+* **Buscar Jogador por ID:** `GET http://localhost:3333/api/players/1`
+* **Atualizar Status (PATCH):** `PATCH http://localhost:3333/api/players/1` (Enviar JSON no Body)
+* **Deletar Jogador:** `DELETE http://localhost:3333/api/players/1`
+
+
+
+---
