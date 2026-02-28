@@ -32,6 +32,13 @@ export const deletePlayer = async (req: Request, res: Response) => {
 export const updatePlayer = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   const bodyValue: StatisticsModel = req.body;
+
+  // BLINDAGEM: Se o Postman mandar Texto ao invés de JSON, bloqueamos a requisição.
+  if (!bodyValue || Object.keys(bodyValue).length === 0) {
+    res.status(400).json({ message: "Bad Request: Body não pode ser vazio ou formato inválido." });
+    return;
+  }
+
   const httpResponse = await service.updatePlayerService(id, bodyValue);
   res.status(httpResponse.statusCode).json(httpResponse.body);
 };
